@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="views/main.css">
+    <title>Live Currency</title>
+</head>
+<body>
+    <h1>Welcome to the Live Currency Website</h1>
+    <form action="/search" method="GET">
+        <label for="currency">Enter a coin</label>
+        <input type="text" id="currency" name="currency" placeholder="For example: USD" required>
+        <input type="submit" value="Search">
+    </form>
+
+    <% if (locals.searchedCurrency) { %>
+        <div class="result">
+            <strong><%= searchedCurrency %></strong> : <%= (1 / currencyValue).toFixed(4) %>
+        </div>
+    <% } else if (typeof searchedCurrency !== 'undefined') { %>
+        <p>Couldn't find your coin</p>
+    <% } %>
+
+    <ul>
+        <% Object.keys(rates).sort().forEach(function(currency) { %>
+            <li><strong><%= currency %></strong>: <%= (1 / rates[currency]).toFixed(4) %></li>
+        <% }); %>
+    </ul>
+</body>
+</html>
